@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -9,11 +9,11 @@ namespace SocksSharp.Extensions
 {
     internal static class HttpHeadersExtensions
     {
-        private static readonly string separator = " ";
-        
+        private static string separator;
+
         public static string GetHeaderString(this HttpHeaders headers, string key)
         {
-            if(headers == null)
+            if (headers == null)
             {
                 throw new ArgumentNullException(nameof(headers));
             }
@@ -28,11 +28,13 @@ namespace SocksSharp.Extensions
 
             headers.TryGetValues(key, out values);
 
-            if(values != null && values.Count() > 1)
+            separator = key.Equals("User-Agent") ? " " : ", ";
+
+            if (values != null && values.Count() > 1)
             {
                 value = String.Join(separator, values.ToArray());
             }
-            
+
             return value;
         }
     }
