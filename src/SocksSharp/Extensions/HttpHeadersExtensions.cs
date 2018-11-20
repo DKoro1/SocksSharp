@@ -9,8 +9,6 @@ namespace SocksSharp.Extensions
 {
     internal static class HttpHeadersExtensions
     {
-        private static string separator;
-
         public static string GetHeaderString(this HttpHeaders headers, string key)
         {
             if (headers == null)
@@ -28,7 +26,7 @@ namespace SocksSharp.Extensions
 
             headers.TryGetValues(key, out values);
 
-            separator = key.Equals("User-Agent") ? " " : ", ";
+            string separator = key.Equals("User-Agent") ? " " : ", ";
 
             if (values != null && values.Count() > 1)
             {
